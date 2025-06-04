@@ -57,6 +57,8 @@ def volcano(
         gene_fontsize (int): Font size for annotations.
         figsize (tuple): Size of the figure.
         linecolor (str): Color of label lines.
+        color_left (str): Color for the downregulated genes.
+        color_right (str): Color for the upregulated genes.
     """
 
     df = df.copy()
