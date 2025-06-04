@@ -40,7 +40,7 @@ def volcano(
     linecolor: str = 'darkgrey',
     too_crowded = False,
     color_left: str = 'royalblue',
-    color_right: str 'orangered',
+    color_right: str = 'orangered',
 ) -> None:
     """
     Create a volcano plot from a dataframe with 'pvals_adj' and 'logfoldchanges'.
