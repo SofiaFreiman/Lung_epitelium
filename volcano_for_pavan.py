@@ -28,6 +28,7 @@ def volcano(
     df: pd.DataFrame,
     text_pval_cut: float = 20,
     text_fc_cut: float = 1,
+    log_method: str = "natural",
     title: str = "Volcano Plot",
     xlim: Optional[float] = None,
     ylim: Optional[float] = None,
@@ -38,8 +39,8 @@ def volcano(
     figsize: Tuple[int, int] = (6, 5),
     linecolor: str = 'darkgrey',
     too_crowded = False,
-    color_left = 'royalblue',
-    color_right = 'orangered',
+    color_left: str = 'royalblue',
+    color_right: str 'orangered',
 ) -> None:
     """
     Create a volcano plot from a dataframe with 'pvals_adj' and 'logfoldchanges'.
@@ -62,7 +63,16 @@ def volcano(
     """
 
     df = df.copy()
-    df['-logP'] = -np.log10(df['pvals_adj'].replace(0, np.nan))  # Avoid -inf
+    # Set log function and y-axis label based on user choice
+    if log_method == "natural":
+        log_func = np.log
+        log_label = "-ln(p-value)"
+    elif log_method == "log10":
+        log_func = np.log10
+        log_label = "-log10(p-value)"
+    else:
+        raise ValueError("log_method must be either 'natural' or 'log10'")
+    df['-logP'] = -log_func(df['pvals_adj'].replace(0, np.nan))
 
     # Replace inf values in -logP
     max_val = np.nanmax(df['-logP'])
