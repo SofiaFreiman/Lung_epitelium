@@ -78,13 +78,13 @@ def volcano(
     fig, ax = plt.subplots(figsize=figsize, facecolor=(1, 1, 1, 0))
     sns.scatterplot(
         x="logfoldchanges", y="-logP", data=df,
-        hue="dot_color", palette={"gray": 'gray', "red": color_right, "blue": 'royalblue'},
+        hue="dot_color", palette={"gray": 'gray', "red": color_right, "blue": color_left},
         s=10, linewidth=0.2, ax=ax, legend=False,
     )
     if too_crowded:
       sns.scatterplot(
           x="logfoldchanges", y="-logP", data=df.sample(len(df)//10),
-          hue="dot_color", palette={"gray": 'gray', "red": 'orangered', "blue": color_left},
+          hue="dot_color", palette={"gray": 'gray', "red": color_right, "blue": color_left},
           s=10, linewidth=0.2, ax=ax, legend=False,
           )
 
