@@ -38,6 +38,8 @@ def volcano(
     figsize: Tuple[int, int] = (6, 5),
     linecolor: str = 'darkgrey',
     too_crowded = False,
+    color_left = 'royalblue',
+    color_right = 'orangered',
 ) -> None:
     """
     Create a volcano plot from a dataframe with 'pvals_adj' and 'logfoldchanges'.
@@ -74,13 +76,13 @@ def volcano(
     fig, ax = plt.subplots(figsize=figsize, facecolor=(1, 1, 1, 0))
     sns.scatterplot(
         x="logfoldchanges", y="-logP", data=df,
-        hue="dot_color", palette={"gray": 'gray', "red": 'orangered', "blue": 'royalblue'},
+        hue="dot_color", palette={"gray": 'gray', "red": color_right, "blue": 'royalblue'},
         s=10, linewidth=0.2, ax=ax, legend=False,
     )
     if too_crowded:
       sns.scatterplot(
           x="logfoldchanges", y="-logP", data=df.sample(len(df)//10),
-          hue="dot_color", palette={"gray": 'gray', "red": 'orangered', "blue": 'royalblue'},
+          hue="dot_color", palette={"gray": 'gray', "red": 'orangered', "blue": color_left},
           s=10, linewidth=0.2, ax=ax, legend=False,
           )
 
