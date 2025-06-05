@@ -72,11 +72,13 @@ def volcano(
         log_label = "-log10(p-value)"
     else:
         raise ValueError("log_method must be either 'natural' or 'log10'")
-    df['-logP'] = -log_func(df['pvals_adj'].replace(0, np.nan))
+    df['-logP'] = -log_func(df['pvals_adj'])
 
     # Replace inf values in -logP
-    max_val = np.nanmax(df['-logP'])
-    df['-logP'].replace(np.inf, max_val, inplace=True)
+    inf_mask = np.isinf(df['-logP'])
+    if inf_mask.any():
+        max_val = df.loc[~inf_mask, '-logP'].max()
+        df.loc[inf_mask, '-logP'] = max_val
 
     # Classify significance
     df['significance'] = df[['pvals_adj', 'logfoldchanges']].apply(significance, axis=1)
