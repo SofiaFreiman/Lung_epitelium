@@ -102,7 +102,7 @@ def volcano(
 
     # Style
     ax.set_title(title, fontsize=16)
-    ax.set_xlabel("log Fold Change", fontsize=14)
+    ax.set_xlabel("log(Fold Change)", fontsize=14)
     ax.set_ylabel(log_label, fontsize=14)
     ax.tick_params(labelsize=10)
     ax.grid(False)
